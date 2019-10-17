@@ -1,7 +1,5 @@
 FROM ubuntu:xenial-20180417
 
-FROM ubuntu:16.04
-
 # Initialize the image
 # Modify to pre-install dev tools and ROCm packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl && \
