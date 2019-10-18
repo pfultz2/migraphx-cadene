@@ -28,7 +28,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --allow-
 RUN pip install https://github.com/RadeonOpenCompute/rbuild/archive/master.tar.gz
 
 # Get cadene models
-RUN pip3 install torch pretrainedmodels scipy
+RUN pip3 install torch==1.1.0 pretrainedmodels scipy
 RUN mkdir /onnx
 ADD get_pretrained.py /onnx/get_pretrained.py
 RUN cd /onnx/ && python3 get_pretrained.py
@@ -38,6 +38,6 @@ RUN mkdir /src
 RUN cd /src && git clone https://github.com/ROCmSoftwarePlatform/AMDMIGraphX
 
 # Build MIGraphX driver
-RUN rbuild build -d /deps -B /build -S /src/AMDMIGraphX -t driver
+RUN rbuild build --cxx /opt/rocm/bin/hcc -d /deps -B /build -S /src/AMDMIGraphX -t driver
 WORKDIR /build/bin
 
